@@ -1,0 +1,9 @@
+func main() {
+    doneChan := make(chan string)
+    go func() {
+        //yapılacak işlemler vs...
+        doneChan <- "İşim bitti"
+    }()
+
+    <-doneChan // İşim bitti diyene kadar çalış!
+}
