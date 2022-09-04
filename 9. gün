@@ -1,0 +1,18 @@
+package main 
+  
+import "fmt" 
+  
+const ( 
+ Locale string = "tr_TR" 
+ PI = 3.14 
+ PILong = float64(22) / float64(7) 
+ // aşağıdaki ifade sürekli değişen değer ürettiği için 
+ // için sabit bir değişkene atanamaz 
+ // Now = time.Now() 
+) 
+  
+func main() { 
+ fmt.Printf("%T(%v)\n", Locale, Locale) 
+ fmt.Printf("%T(%v)\n", PI, PI) 
+ fmt.Printf("%T(%v)\n", PILong, PILong) 
+} 
