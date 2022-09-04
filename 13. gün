@@ -1,0 +1,31 @@
+//Test main
+
+func TestA(t *testing.T) {
+	t.Log("Test A çalıştı")
+}
+
+func TestB(t *testing.T) {
+	t.Log("Test B çalıştı")
+}
+
+func TestMain(m *testing.M) {
+	// setup()
+	exitVal := m.Run()
+	if exitVal == 0 {
+		// teardown()
+	}
+	os.Exit(exitVal)
+}
+
+
+//Test A ve B sırayla çalışıyor ve çıktısı bu şekilde 
+
+go test TestMain_test.go -v 
+=== RUN   TestA 
+--- PASS: TestA (0.00s) 
+    testMain_test.go:9: Test A çalıştı 
+=== RUN   TestB 
+--- PASS: TestB (0.00s) 
+    testMain_test.go:13: Test B çalıştı 
+PASS 
+ok      command-line-arguments  (cached) 
