@@ -1,0 +1,26 @@
+//toplama fonksiyonu döndüren test kodu
+
+package tests 
+ 
+import "testing" 
+ 
+func Topla(sayilar []int) int { 
+	var toplam int 
+	for i := range sayilar { 
+		toplam = toplam + sayilar[i] 
+	} 
+	return toplam 
+} 
+
+//topla.go isimli dosyada varsayarsak
+
+package tests 
+ 
+import "testing" 
+ 
+func TestTopla(t *testing.T) { 
+	sonuc := Topla([]int{2, 5}) 
+	if sonuc != 7 { 
+		t.Error("Beklenen sonuc 7, elde edilen ", sonuc) 
+	} 
+} 
