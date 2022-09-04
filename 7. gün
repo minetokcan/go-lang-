@@ -1,0 +1,184 @@
+
+package main 
+
+
+import ( 
+
+
+	"encoding/json" 
+
+
+	"fmt" 
+
+ 
+) 
+
+
+// Person object 
+
+ 
+
+type Person struct { 
+
+ 
+
+	FirstName, LastName string // Küçük harf olursa json kütüphanesi erişemeyecek. 
+
+
+	Number string `json:"number"` // json field name'i değişebiliriz. 
+
+
+	Company *Company 
+
+
+} 
+
+
+// MarshalJSON : json kütüphanesi objeye ait MarshalJSON fonksiyonu varsa onu calıştıracak 
+
+ 
+
+// https://golang.org/pkg/encoding/json/#Marshal 
+
+ 
+
+func (person *Person) MarshalJSON() ([]byte, error) { 
+
+ 
+
+	return json.Marshal(&struct { // Anonymous bir struct oluşturalım 
+
+ 
+
+		FirstName string `json:"first_name"` 
+
+ 
+
+		LastName string `json:"last_name"` 
+
+
+	}{ 
+
+ 
+
+		FirstName: person.FirstName, 
+
+ 
+
+		LastName: person.LastName, 
+
+
+	}) 
+
+ 
+} 
+
+
+// Company object 
+
+ 
+
+type Company struct { 
+
+
+	Name string `json:"name" 
+
+ 
+	Address string  
+  
+
+	Persons []*Person `json:"persons"` // Personeller 
+
+
+} 
+
+ 
+// AddPerson to Company 
+
+ 
+
+func (company *Company) AddPerson(person *Person) { 
+
+ 
+
+	company.Persons = append(company.Persons, person) 
+
+ 
+} 
+
+
+func main() { 
+
+ 
+
+	company := &Company{ 
+
+
+		Name: "AKM", 
+
+		Address: "TeknoKent", 
+ 
+	} 
+
+
+	p := &Person{ 
+
+ 
+
+		FirstName: "A.Kadir", 
+
+		LastName: "Mutlu", 
+
+ 
+
+	} 
+
+ 
+
+	p.Number = "0449444944944" 
+
+ 
+
+	p.Company = company // Bu Satırı eklememiz hataya sebep olmuştu. 
+
+ 
+
+	company.AddPerson(p) // Add Person to Company 
+
+ 
+
+	p2 := &Person{ 
+
+ 
+
+		FirstName: "Mujdat", 
+
+ 
+
+		LastName: "Cengiz", 
+
+
+	} 
+ 
+
+	p2.Number = "0449444944944" 
+
+
+	p2.Company = company // Bu Satırı eklememiz hataya sebep olmuştu. 
+
+ 
+	company.AddPerson(p2) // Add Person to Company 
+
+ 
+	result, err := json.Marshal(company) 
+
+ 
+
+	if err != nil { 
+
+		panic(err) 
+
+	} 
+
+	fmt.Println(string(result)) 
+
