@@ -1,0 +1,89 @@
+//Table test
+
+var tableDegerleri = []struct {
+	girdix        int
+	girdiy        int
+	beklenenSonuc int
+}{
+	{2, 2, 4},
+	{5, 3, 8},
+	{8, 4, 12},
+	{12, 5, 19},
+}
+
+func TestTopla(t *testing.T) {
+	for _, deger := range tableDegerleri {
+		
+		eldeEdilenSonuc := Topla([]int{deger.girdix, deger.girdiy})
+		
+		if eldeEdilenSonuc != deger.beklenenSonuc {
+			t.Errorf("Beklenen sonuc %d, elde edilen %d", deger.beklenenSonuc, eldeEdilenSonuc)
+		}
+		
+    
+    //Subtest yapısı
+    
+    func TestSubtests(t *testing.T) {
+
+	t.Run("A", func(t *testing.T) {
+		t.Log("Test A1 tamamlandı")
+	})
+	t.Run("B", func(t *testing.T) {
+		t.Log("Test B tamamlandı")
+	})
+	t.Run("C", func(t *testing.T) {
+		t.Log("Test C tamamlandı")
+	})
+
+}
+
+//Table Test’teki ToplaTest fonksiyonunu subtest mantığıyla güncelleme
+
+var tableDegerleri = []struct {
+	girdix        int
+	girdiy        int
+	beklenenSonuc int
+}{
+	{2, 2, 4},
+	{5, 3, 8},
+	{8, 4, 12},
+	{12, 5, 19},
+}
+
+func TestTopla(t *testing.T) {
+	for _, deger := range tableDegerleri {
+
+		testIsmi := fmt.Sprintf("Test %d+%d", deger.girdix, deger.girdiy)
+		// Subtest
+		t.Run(testIsmi, func(t *testing.T) {
+			eldeEdilenSonuc := Topla([]int{deger.girdix, deger.girdiy})
+			if eldeEdilenSonuc != deger.beklenenSonuc {
+				t.Errorf("Beklenen sonuc %d, elde edilen %d", deger.beklenenSonuc, eldeEdilenSonuc)
+			}
+		})
+
+	}
+}
+
+
+//Paralel Test
+
+func TestParalel(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name string
+	}{
+		{"test 1"},
+		{"test 2"},
+		{"test 3"},
+		{"test 4"},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			t.Log(tt.name)
+		})
+	}
+}
+
