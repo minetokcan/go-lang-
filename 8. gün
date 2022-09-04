@@ -1,0 +1,29 @@
+package main 
+
+import ( 
+
+ "fmt" 
+
+ "strings" 
+
+) 
+
+func main() { 
+
+ var eposta string 
+
+ fmt.Print("E-posta adresinizi giriniz: ") 
+
+ fmt.Scan(&eposta) 
+
+ if strings.Contains(eposta, "@") { 
+
+  fmt.Println("E-posta Adresiniz Onaylandı!") 
+
+ } else { 
+
+  fmt.Println("Geçerli Bir E-posta Adresi Giriniz!") 
+
+ } 
+
+} 
