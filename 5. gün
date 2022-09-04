@@ -1,0 +1,67 @@
+// MapKeys returns a slice of all the keys in m. 
+// The keys are not returned in any particular order. 
+func MapKeys[Key comparable, Val any](m map[Key]Val) []Key { 
+    s := make([]Key, 0, len(m)) 
+    for k := range m { 
+        s = append(s, k) 
+    } 
+    return s 
+} 
+
+
+// Tree is a binary tree. 
+type Tree[T any] struct { 
+    cmp  func(T, T) int 
+    root *node[T] 
+} 
+ 
+// A node in a Tree. 
+type node[T any] struct { 
+    left, right  *node[T] 
+    val          T 
+} 
+ 
+// find returns a pointer to the node containing val, 
+// or, if val is not present, a pointer to where it 
+// would be placed if added. 
+func (bt *Tree[T]) find(val T) **node[T] { 
+    pl := &bt.root 
+    for *pl != nil { 
+        switch cmp := bt.cmp(val, (*pl).val); { 
+        case cmp < 0: 
+            pl = &(*pl).left 
+        case cmp > 0: 
+            pl = &(*pl).right 
+        default: 
+            return pl 
+        } 
+    } 
+    return pl 
+} 
+ 
+// Insert inserts val into bt if not already there, 
+// and reports whether it was inserted. 
+func (bt *Tree[T]) Insert(val T) bool { 
+    pl := bt.find(val) 
+    if *pl != nil { 
+        return false 
+    } 
+    *pl = &node[T]{val: val} 
+    return true 
+} 
+
+// SliceFn implements sort.Interface for a slice of T. 
+type SliceFn[T any] struct { 
+    s    []T 
+    less func(T, T) bool 
+} 
+ 
+func (s SliceFn[T]) Len() int { 
+    return len(s.s) 
+} 
+func (s SliceFn[T]) Swap(i, j int) { 
+    s.s[i], s.s[j] = s.s[j], s.s[i] 
+} 
+func (s SliceFn[T]) Less(i, j int) bool { 
+    return s.less(s.s[i], s.s[j]) 
+} 
