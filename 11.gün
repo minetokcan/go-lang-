@@ -1,0 +1,16 @@
+//Başarılı ise
+
+go test topla_test.go -v 
+=== RUN   TestTopla 
+--- PASS: TestTopla (0.00s) 
+PASS 
+ok      command-line-arguments  0.006s
+
+//Başarısız ise
+
+go test topla_test.go -v 
+=== RUN   TestTopla 
+--- FAIL: TestTopla (0.00s) 
+    normalTest_test.go:19: Beklenen sonuc 6, elde edilen  7 
+FAIL 
+FAIL    command-line-arguments  0.007s 
