@@ -1,0 +1,24 @@
+//go routine
+
+func main() { 
+
+go func() { 
+
+fmt.Println("Merhaba isimsiz dünya") 
+
+}() 
+
+
+} 
+
+
+//Channels
+
+ilkKanal := make(chan string) 
+
+
+ilkKanal <- "merhaba" // Gönderme 
+
+ 
+degisken := <- ilkKanal // Alma 
+
