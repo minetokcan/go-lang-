@@ -1,0 +1,92 @@
+
+package main 
+
+import ( 
+
+	"fmt" 
+
+	"time" 
+
+) 
+
+func main() { 
+
+
+	kahramanlar := []string{"Marvel", "Flash", "Thanos", "Flash", "Hulk", "Thor", 
+
+		"Marvel", "Flash", "Thanos", "Flash", "Hulk", "Thor"} 
+
+
+	go bulucuA(kahramanlar) 
+
+ 
+	go bulucuB(kahramanlar) 
+
+ 
+	fmt.Scanln() 
+
+} 
+
+func bulucuA(dizi []string) { 
+
+	for i := 0; i < len(dizi); i++ { 
+
+		if dizi[i] == "Flash" { 
+
+			fmt.Println("Bulucu A: " + dizi[i] + " buldu")
+      
+		} 
+
+		time.Sleep(time.Second) 
+
+	} 
+
+} 
+
+func bulucuB(dizi []string) { 
+
+	for i := 0; i < len(dizi); i++ { 
+
+		if dizi[i] == "Flash" { 
+
+			fmt.Println("Bulucu B: " + dizi[i] + " buldu") 
+
+		} 
+
+		time.Sleep(time.Second) 
+
+	} 
+
+} 
+
+//Çıktısı
+
+Bulucu A: Flash buldu 
+
+
+
+Bulucu A: Flash buldu 
+
+ 
+
+Bulucu B: Flash buldu 
+
+ 
+
+Bulucu A: Flash buldu 
+
+ 
+
+Bulucu B: Flash buldu 
+
+ 
+
+Bulucu B: Flash buldu 
+
+ 
+
+Bulucu A: Flash buldu 
+
+ 
+
+Bulucu A: Flash buldu 
