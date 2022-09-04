@@ -1,0 +1,63 @@
+func Topla(sayilar []int) (int, error) {
+	toplam := 0
+	for i := range sayilar {
+		toplam = toplam + sayilar[i]
+	}
+
+	return toplam, nil
+}
+
+func Topla(t *testing.T) {
+
+	sonuc, err := AssertionTopla([]int{2, 5})
+
+	// Eşittir
+	assert.Equal(t, 7, sonuc, "sonuç eşit olmalı")
+
+	// Eşit değildir
+	assert.NotEqual(t, 6, sonuc, "Sonuçlar eşit olmamalı")
+
+	// Sonuc nil olmalıdır
+	assert.Nil(t, err)
+
+	// Sonuç nil değilse
+	err = errors.New("toplanmadi")
+	if assert.NotNil(t, err) {
+		// Sonucun nil olmadığını bildiğimiz için ilave testler yapabiliriz
+		assert.Equal(t, "toplanmadi", err.Error())
+	}
+}
+
+
+//HTTP Test
+
+package main
+
+import (
+	"io"
+	"net/http"
+	"net/http/httptest"
+	"testing"
+)
+
+func TestHttp(t *testing.T) {
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		io.WriteString(w, "pong")
+	}
+
+	req := httptest.NewRequest("GET", "/ping", nil)
+	w := httptest.NewRecorder()
+	handler(w, req)
+
+	// Status code test
+	if w.Code != 404 {
+		t.Error("Http test isteği başarısız")
+	}
+
+	// Return value test
+	if w.Body.String() != "pong" {
+		t.Error("Dönen cevap farklı, test başarısız")
+	}
+}
+
+//Burada kısaca projenin route’larını aldık, her bir route için dönmesi gereken handle fonksiyonunu yazdık ve dönen status kod ile değeri test ettik.
