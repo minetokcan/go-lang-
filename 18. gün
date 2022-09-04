@@ -1,0 +1,67 @@
+ilkKanalim := make(chan string, 1)
+ikinciKanalim := make(chan string, 1)
+
+...
+sender(ilkKanalim, kahraman)
+...
+bulunan = receiver(bulunan, ilkKanalim)
+...
+direction(ilkKanalim, ikinciKanalim)
+
+func sender(channel chan<- string, message string) {
+    channel <- message
+}
+
+func receiver(message string, channel <-chan string) string {
+    message = <-channel
+    return message
+}
+
+func direction(receiver <-chan string, sender chan<- string) {
+   message := <-receiver
+   sender <- message   
+}
+
+
+
+//Unbuffered ve Buffered Channel
+
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	bufferedKanal := make(chan string, 3)
+	go func() {
+		bufferedKanal <- "birinci"
+		fmt.Println("1. Gönderildi")
+		bufferedKanal <- "ikinci"
+		fmt.Println("2. Gönderildi")
+		bufferedKanal <- "üçüncü"
+		fmt.Println("3. Gönderildi")
+	}()
+	<-time.After(time.Second * 1)
+	go func() {
+		ilkOkunan := <-bufferedKanal
+		fmt.Println("Alınıyor...")
+		fmt.Println(ilkOkunan)
+		ikinciOkunan := <-bufferedKanal
+		fmt.Println(ikinciOkunan)
+		ucuncuOkunan := <-bufferedKanal
+		fmt.Println(ucuncuOkunan)
+	}()
+	<-time.After(time.Second * 5)
+}
+
+//çıktısı
+
+1. Gönderildi
+2. Gönderildi
+3. Gönderildi
+Alınıyor...
+birinci
+ikinci
+üçüncü
