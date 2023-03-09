@@ -1,7 +1,7 @@
-# go-lang-kodlarim
+# go-lang
 
 
-> Muğla Sıtkı Koçman Üniversitesi Bilişim Sistemleri Mühendisliği 3. sınıf 
+> Mugla Sitki Kocman University Information Systems Engineering 3. Grade
 
 
-> 20 gün yaz stajı
+> 20 day summer internship
